@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{ --bg:249 250 251; --fg:15 23 42; --muted:100 116 139; --brand:139 92 246; --brand-2:168 85 247; --ring:139 92 246; }
+@media (prefers-color-scheme: dark){
+  :root{ --bg:2 6 23; --fg:226 232 240; --muted:148 163 184; --brand:196 181 253; --brand-2:216 180 254; --ring:196 181 253; }
+}
+.bg-page{ background-color: rgb(var(--bg)); }
+.text-page{ color: rgb(var(--fg)); }
+.text-muted{ color: rgb(var(--muted)); }
+.glass{ background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03)); backdrop-filter: blur(10px); }
+.grad { background-image: radial-gradient(1000px 500px at 10% -10%, rgba(168,85,247,.25), transparent),
+                    radial-gradient(1000px 500px at 90% 110%, rgba(139,92,246,.22), transparent); }
+.ring-acc{ box-shadow: 0 0 0 1px rgba(var(--ring)/.35) inset; }
+.btn { @apply inline-flex items-center gap-2 rounded-2xl px-5 py-3 font-semibold; }
+.btn-primary { background: rgb(var(--brand)); color: white; }
+.btn-outline { @apply ring-acc hover:bg-white/5; }
+.card { @apply rounded-2xl glass ring-1 ring-white/10 p-5; }
+
+/* Fancy visuals */
+.fancy { position: relative; border-radius: 1.25rem; background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03)); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); overflow: hidden; }
+.fancy::before{ content:""; position:absolute; inset:-1px; border-radius:inherit; padding:1px; background: linear-gradient(120deg, rgba(139,92,246,.5), rgba(168,85,247,.25), rgba(139,92,246,.5)); -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none; }
+.fancy:hover { transform: translateY(-3px); transition: all .35s ease; }
+.icon-bubble { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:12px; background: rgba(255,255,255,.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); animation: float 6s ease-in-out infinite; }
+@keyframes float { 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-6px) } }
+.step { counter-increment: step; }
+.step::before{ content: counter(step); display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; margin-right:.6rem; border-radius:10px; background: linear-gradient(120deg, rgba(139,92,246,.9), rgba(168,85,247,.7)); color:#fff; font-weight:700; font-size:.9rem; box-shadow: 0 6px 20px rgba(139,92,246,.28); }
+
+@keyframes ripple { 0% { transform: scale(0); opacity:.6 } 100% { transform: scale(2.5); opacity:0 } }
+.btn-elevate { box-shadow: 0 12px 36px rgba(139,92,246,.30); }
+.btn-elevate:hover { box-shadow: 0 18px 56px rgba(139,92,246,.40); }
+
+.glow { box-shadow: 0 20px 60px rgba(139,92,246,.18); }
+.glow:hover { box-shadow: 0 24px 84px rgba(139,92,246,.28); }
+/* --- keep your existing styles --- */
+
+* { box-sizing: border-box; }        /* safer layout calc */
+html.no-x, body.no-x { overflow-x: hidden; }   /* 👈 kill horizontal scroll */
+
+section{ max-width: 100vw; }         /* any rogue absolute child can't push width */
+
+/* Hero blob used to push layout; clip it inside */
+.hero-clip { overflow: hidden; }     /* use on Hero section */
+
+/* === THEME FX === */
+:root {
+  --aurora-1: 255 200 255;   /* pink */
+  --aurora-2: 170 150 255;   /* purple */
+  --aurora-3: 120 220 255;   /* cyan */
+}
+
+.aurora {
+  position: fixed; inset: -20% -10% auto -10%;
+  pointer-events: none; z-index: -10; filter: blur(50px);
+}
+.aurora > div { position: absolute; border-radius: 9999px; opacity: .55; mix-blend-mode: screen; }
+
+/* blobs */
+.blob1 { background: radial-gradient(closest-side, rgba( var(--aurora-1) / .85 ), transparent 70%); width: 40vw; height: 40vw; left: -5vw; top: -10vh; animation: floatA 18s ease-in-out infinite; }
+.blob2 { background: radial-gradient(closest-side, rgba( var(--aurora-2) / .85 ), transparent 70%); width: 45vw; height: 45vw; right: -10vw; top: 5vh; animation: floatB 22s ease-in-out infinite; }
+.blob3 { background: radial-gradient(closest-side, rgba( var(--aurora-3) / .85 ), transparent 70%); width: 35vw; height: 35vw; left: 20vw; bottom: -10vh; animation: floatC 20s ease-in-out infinite; }
+
+/* subtle grain */
+.noise::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='1'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 .06 0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .35;
+}
+
+/* shimmer for CTA/buttons */
+.shimmer {
+  position: relative; overflow: hidden;
+}
+.shimmer::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.25) 50%, transparent 70%);
+  transform: translateX(-120%); animation: shine 2.2s ease-in-out infinite;
+}
+
+@keyframes shine { to { transform: translateX(120%); } }
+@keyframes floatA { 0%,100%{ transform: translate(0,0) scale(1)} 50%{ transform: translate(6vw, -4vh) scale(1.05)} }
+@keyframes floatB { 0%,100%{ transform: translate(0,0) scale(1)} 50%{ transform: translate(-5vw, 3vh) scale(1.08)} }
+@keyframes floatC { 0%,100%{ transform: translate(0,0) scale(1)} 50%{ transform: translate(3vw, -5vh) scale(1.03)} }
+
+/* horizontal scroll safety */
+html, body { overflow-x: hidden; }
+.hero-clip { overflow: hidden; }
