@@ -7,3 +7,22 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 coverage
+# node / next
+node_modules/
+.next/
+out/
+dist/
+.vercel/
+*.log
+
+# env
+.env
+.env.*.local
+.env.local
+.env.production
+.env.development
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
